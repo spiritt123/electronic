@@ -1,12 +1,12 @@
 
 #include "pin.h"
 
-Pin::Pin(bool status, Pin *source, Pin *drain, Element *parent)
+Pin::Pin(Element *parent, bool status, Pin *source, Pin *drain)
 {
+    _parent = parent;
     _status = status;
     _source = source;
     _drain  = drain;
-    _parent = parent;
 }
 
 Pin::~Pin()

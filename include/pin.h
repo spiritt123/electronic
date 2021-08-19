@@ -1,11 +1,12 @@
 #pragma once
 
-#include "element.h"
+//#include "element.h"
+class Element;
 
 class Pin
 {
 public:
-    Pin(bool status = false, Pin *source = nullptr, Pin *drain = nullptr, Element *parent = nullptr);
+    Pin(Element *parent = nullptr, bool status = false, Pin *source = nullptr, Pin *drain = nullptr);
     ~Pin();
 
     void changeStatus();

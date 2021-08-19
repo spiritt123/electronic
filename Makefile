@@ -5,7 +5,10 @@ CFLAGS = -c -Wall
 LDFLAGS = 
 INCLUDE = include 
 
-SRC = main window pin pin_menu input_pin_menu
+SRC = main window \
+	  pin pin_menu input_pin_menu \
+	  element \
+
 SOURCES = $(addsuffix .cpp, $(addprefix src/, $(SRC))) 
 OBJECTS = $(SOURCES:.cpp=.o) 
 EXECUTABLE = out
