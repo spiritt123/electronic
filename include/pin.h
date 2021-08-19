@@ -6,25 +6,22 @@ class Element;
 class Pin
 {
 public:
-    Pin(Element *parent = nullptr, bool status = false, Pin *source = nullptr, Pin *drain = nullptr);
+    Pin(Element *parent = nullptr, bool status = false, Pin *neighbour = nullptr);
     ~Pin();
 
-    void changeStatus();
+    bool changeStatus();
 
     void setStatus(bool status);
-    void setSource(Pin *source);
-    void setDrain(Pin *drain);
+    void setNeighbour(Pin *neighbour);
     void setParent(Element *parent);
 
     bool  getStatus();
-    Pin*  getSource();
-    Pin*  getDrain();
+    Pin*  getNeighbour();
     Element* getParent();
 
 private:
     bool _status;
-    Pin* _source;
-    Pin* _drain;
+    Pin* _neighbour;
     Element* _parent;
 };
 

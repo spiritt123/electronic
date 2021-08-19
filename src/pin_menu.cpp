@@ -24,6 +24,12 @@ void PinMenu::addPin()
     }
 }
 
+Pin* PinMenu::getPinForNumber(size_t number)
+{
+    if (number >= _pins.size())
+        return nullptr;
+    return &_pins[number];
+}
 void PinMenu::removePin()
 {
     //_input_pins.back().getSource().removeSource();
@@ -50,6 +56,7 @@ void PinMenu::setLimit(size_t limit)
     _limit = limit;
 }
 
+/*
 void PinMenu::draw(sf::RenderWindow *window)
 {
     size_t count  = _pins.size();
@@ -67,4 +74,5 @@ void PinMenu::draw(sf::RenderWindow *window)
         window->draw(circle);
     }
 }
+*/
 

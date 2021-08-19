@@ -14,10 +14,12 @@ public:
     void addPin();
     void removePin();
 
+    Pin* getPinForNumber(size_t number);
+
     size_t getLimit();
     void setLimit(size_t limit);
 
-    void draw(sf::RenderWindow *window);
+    //void draw(sf::RenderWindow *window);
  
 protected:
     size_t _limit;

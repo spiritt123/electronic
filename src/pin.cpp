@@ -1,27 +1,22 @@
+#include <iostream>
 
 #include "pin.h"
 
-Pin::Pin(Element *parent, bool status, Pin *source, Pin *drain)
+Pin::Pin(Element *parent, bool status, Pin *neighbour)
 {
     _parent = parent;
     _status = status;
-    _source = source;
-    _drain  = drain;
+    _neighbour = neighbour;
 }
 
 Pin::~Pin()
 {
-    if (_source != nullptr)
-        delete _source;
-    if (_drain != nullptr)
-        delete _drain;
-    if (_parent != nullptr)
-        delete _parent;
 }
 
-void Pin::changeStatus()
+bool Pin::changeStatus()
 {
     _status ^= 1;
+    return _status;
 }
 
 void Pin::setStatus(bool status)
@@ -29,24 +24,13 @@ void Pin::setStatus(bool status)
     _status = status;
 }
 
-void Pin::setSource(Pin *source)
+void Pin::setNeighbour(Pin *neighbour)
 {
-    if (_source != nullptr)
-        delete _source;
-    _source = source;
-}
-
-void Pin::setDrain(Pin *drain)
-{
-    if (_drain != nullptr)
-        delete _drain;
-    _drain = drain;
+    _neighbour = neighbour;
 }
 
 void Pin::setParent(Element *parent)
 {
-    if (_parent != nullptr)
-        delete _parent;
     _parent = parent;
 }
 
@@ -55,14 +39,9 @@ bool Pin::getStatus()
     return _status;
 }
 
-Pin* Pin::getSource()
+Pin* Pin::getNeighbour()
 {
-    return _source;
-}
-
-Pin* Pin::getDrain()
-{
-    return _drain;
+    return _neighbour;
 }
 
 Element* Pin::getParent()
