@@ -8,7 +8,13 @@ CONFIG += c++11
 VPATH = src
 INCLUDEPATH = include
 
-SOURCES += src/*.cpp
+SOURCES += \
+    src/main.cpp \
+    src/window.cpp \
+    src/pin.cpp \
+    src/pin_menu.cpp
+
+#src/*.cpp
 
 HEADERS += include/*.h
 

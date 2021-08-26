@@ -2,13 +2,22 @@
 #include <iostream>
 #include <cmath>
 
-PinMenu::PinMenu(int x, int y, int len, size_t limit)
+PinMenu::PinMenu(QWidget *parent, pin_types pins_type, 
+                 int x, int y, int len, size_t limit) :
+    QWidget(parent),
+    _x(x),
+    _y(y),
+    _len(len),
+    _limit(limit),
+    _radius(15),
+    _pins_type(pins_type)
 {
-    _x = x;
-    _y = y;
-    _len = len;
-    _limit = limit;
-    _radius = 15;
+    _count = 0;
+}
+
+PinMenu::~PinMenu()
+{
+
 }
 
 void PinMenu::setRadiusPin(double radius)
@@ -18,25 +27,34 @@ void PinMenu::setRadiusPin(double radius)
 
 void PinMenu::addPin()
 {
-    if (_pins.size() < _limit)
+    if (_count < _limit)
     {
-        _pins.push_back(Pin());
+        _parent->insertWidget(2, new Pin(this, _pins_type));
+        ++_count;
     }
 }
 
-Pin* PinMenu::getPinForNumber(size_t number)
-{
-    if (number >= _pins.size())
-        return nullptr;
-    return &_pins[number];
-}
 void PinMenu::removePin()
 {
-    //_input_pins.back().getSource().removeSource();
-    if (_pins.size() > 0)
+    if (_count > 0)
     {
-        _pins.pop_back();
+        QLayoutItem *child;
+        if ((child = _parent->takeAt(2)) != 0)
+        {
+            child->widget()->hide();
+            delete child;
+            --_count;
+        }
     }
+}
+
+//???
+Pin* PinMenu::getPinForNumber(size_t number)
+{
+    if (number >= _count)
+        return nullptr;
+    QLayoutItem *child;
+    return (Pin*)_parent->takeAt(number);
 }
 
 size_t PinMenu::getLimit()
@@ -55,24 +73,4 @@ void PinMenu::setLimit(size_t limit)
     }
     _limit = limit;
 }
-
-/*
-void PinMenu::draw(sf::RenderWindow *window)
-{
-    size_t count  = _pins.size();
-    double part   = 0.8;
-    double offset = (1 - part) / 2 * _len;
-    for (size_t i = 0; i < count; ++i)
-    {
-        sf::CircleShape circle(_radius);
-        circle.setOrigin(_radius, _radius);
-        if (_pins[i].getStatus() == true)
-            circle.setFillColor(sf::Color(255, 0, 0));
-        else
-            circle.setFillColor(sf::Color(0, 0, 0));
-        circle.move(_x, offset + _len * part * (i + 1) / (count + 1));
-        window->draw(circle);
-    }
-}
-*/
 

@@ -7,9 +7,9 @@ Element::Element(size_t input_pin_count, std::string rule)
     _input_pins.resize(input_pin_count);
     for (size_t i = 0; i < input_pin_count; ++i)
     {
-        _input_pins[i] = Pin(this);
+        //_input_pins[i] = new Pin(this);
     }
-    _output = Pin(this);
+    //_output = new Pin(this);
 }
 
 bool Element::getStatus()
@@ -50,11 +50,11 @@ void Element::updateStatus()
         }
         else if (_rule[i] == '!')
         {
-            result &= !_input_pins[_rule[++i] - 'a'].getStatus();
+            result &= !_input_pins[_rule[++i] - 'a']->getStatus();
         }
         else
         {
-            result &= _input_pins[_rule[i] - 'a'].getStatus();
+            result &= _input_pins[_rule[i] - 'a']->getStatus();
         }
     }
     _status = result;

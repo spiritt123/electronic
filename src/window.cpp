@@ -1,30 +1,81 @@
 
 #include <functional>
-#include <iostream>
 #include "window.h"
-#include <map>
+#include "ui_mainwindow.h"
+#include <iostream>
 
-Window::Window(size_t height, size_t width)
+Window::Window(QMainWindow *parent, size_t height, size_t width) : 
+    QMainWindow(parent),
+    ui(new Ui::Window)
 {
+    ui->setupUi(this);
+
+    //Pin *pin = new Pin(this);
+    //connect(pin, SIGNAL(click(Pin*)), this, SLOT(wire(Pin*)) );
+    setStyleSheet(
+            "QPushButton#pin {\n"
+                "border-radius: 15px;\n"
+                "max-width: 30px;\n"
+                "height: 30px;\n"
+                "background-position: center;\n"
+                "margin-left: 65px\n"
+                "}\n"
+                
+                );
+    
+    //ui->InputPins->insertWidget(2, pin);
+
     _height = height;
     _width = width;
-    //_window = new sf::RenderWindow(sf::VideoMode(width, height), "Press H for insormation");
-    //_window->setFramerateLimit(30);
-    _in_menu = InputPinMenu(50, 0, _height);
-    _out_menu = PinMenu(_width - 50, 0, _height);
+    //_in_menu = InputPinMenu(50, 0, _height);
+    _out_menu = new PinMenu(ui->OutputPinsList, output_pin, _width - 50, 0, _height);
+    _out_menu->setLayout(ui->OutputPins);
 }
 
 Window::~Window()
 {
-    //delete _window;
+    delete ui;
 }
 
-void Window::closeWindow()
+void Window::wire(Pin *pin)
 {
-    //_window->close();
+    static Pin *first  = nullptr;
+
+    if (first->getPinType() == pin->getPinType())
+        return ;
+    if (first == nullptr)
+    {
+        first = pin;
+        std::cout << "first " << pin << "\n";
+        return ;
+    }
+
+    
+    first = nullptr;
+    std::cout << "second " <<  pin << "\n";
+}
+    
+void Window::on_AddOutputPin_clicked()
+{
+    _out_menu->addPin();
 }
 
+void Window::on_AddInputPin_clicked()
+{
 
+}
+
+void Window::on_RemoveOutputPin_clicked()
+{
+    _out_menu->removePin();
+}
+
+void Window::on_RemoveInputPin_clicked()
+{
+
+}
+
+/*
 void Window::wire()
 {
     Pin *start = _in_menu.getPinForNumber(0);
@@ -34,56 +85,6 @@ void Window::wire()
     if (end != nullptr)
         end->setNeighbour(start);
 }
+*/
 
-void Window::start()
-{
-    std::map<sf::Keyboard::Key, std::function<void()>> keys_functions;
-    keys_functions[sf::Keyboard::Escape] = std::bind(&Window::closeWindow, this);
-
-    keys_functions[sf::Keyboard::Z]      = std::bind(&InputPinMenu::addPin, &_in_menu);
-    keys_functions[sf::Keyboard::X]      = std::bind(&InputPinMenu::removePin, &_in_menu);
-    keys_functions[sf::Keyboard::C]      = std::bind(&PinMenu::addPin, &_out_menu);
-    keys_functions[sf::Keyboard::V]      = std::bind(&PinMenu::removePin, &_out_menu);
-    
-    //keys_functions[sf::Keyboard::Num1]   = std::bind(&PinMenu::removePin, &_out_menu);
-    keys_functions[sf::Keyboard::W]   = std::bind(&Window::wire, this);
-
-
-/*
-    while (_window->isOpen())
-    {
-        sf::Event event;
-        while (_window->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                _window->close();
-            if (event.type == sf::Event::KeyPressed)
-            {
-                auto ss = keys_functions[event.key.code];
-                if (!ss)
-                    continue;
-                ss();
-            }
-            
-            if (event.type == event.MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-            {
-                sf::Vector2i position = sf::Mouse::getPosition(*_window);
-                _in_menu.click(position, _height);
-            }
-        }
-        
-        _window->clear(sf::Color(55, 71, 79, 1));
-
-        draw();
-
-        _window->display();
-    }
-    */
-}
-
-void Window::draw()
-{
-    //_in_menu.draw(_window);
-    //_out_menu.draw(_window);
-}
 

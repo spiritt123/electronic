@@ -1,27 +1,42 @@
 #pragma once
 
-//#include "element.h"
-class Element;
+#include <QPushButton>
 
-class Pin
+enum pin_types
 {
+    input_pin,
+    output_pin
+};
+
+class Pin : public QPushButton
+{
+    Q_OBJECT
 public:
-    Pin(Element *parent = nullptr, bool status = false, Pin *neighbour = nullptr);
+    Pin(QWidget *parent, pin_types pin_type = input_pin, bool status = false, Pin *neighbour = nullptr);
     ~Pin();
 
     bool changeStatus();
 
     void setStatus(bool status);
     void setNeighbour(Pin *neighbour);
-    void setParent(Element *parent);
+    void setPinType(pin_types pin_type);
 
     bool  getStatus();
     Pin*  getNeighbour();
-    Element* getParent();
+    pin_types getPinType();
+
+    void connectPin(Pin* neighbour);
+    void disconnectPin(Pin* neighbour);
+
+signals:
+    void click(Pin* pin);
+
+private slots:
+    void getPointPin();
 
 private:
     bool _status;
+    pin_types _pin_type;
     Pin* _neighbour;
-    Element* _parent;
 };
 

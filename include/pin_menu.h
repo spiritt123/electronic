@@ -1,14 +1,23 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
-
+#include <QWidget>
+#include <QVBoxLayout>
 #include "pin.h"
 
-class PinMenu
+class PinMenu : public QWidget
 {
+    Q_OBJECT
 public:
-    PinMenu(int x = 0, int y = 0, int len = 50, size_t limit = 10);
+    PinMenu(QWidget *parent = 0, pin_types pins_type = output_pin, 
+            int x = 0, int y = 0, int len = 50, size_t limit = 10);
+
+    ~PinMenu();
+
+    void setLayout(QVBoxLayout *parent)
+    {
+        _parent = parent;
+    };
  
     void setRadiusPin(double radius);
     void addPin();
@@ -19,11 +28,10 @@ public:
     size_t getLimit();
     void setLimit(size_t limit);
 
-    //void draw(sf::RenderWindow *window);
- 
 protected:
-    size_t _limit;
+    size_t _count, _limit;
     int _x, _y, _len;
     double _radius;
-    std::vector<Pin> _pins;
+    pin_types _pins_type;
+    QVBoxLayout *_parent;
 };

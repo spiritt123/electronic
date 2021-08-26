@@ -23,8 +23,8 @@ private:
 protected:
     bool _status;
     std::string _rule;
-    std::vector<Pin> _input_pins;
-    Pin _output;
+    std::vector<Pin*> _input_pins;
+    Pin *_output;
 };
 
 #endif

@@ -1,19 +1,21 @@
 #include "input_pin_menu.h"
+#include "pin.h"
 #include <iostream>
 #include <cmath>
 
 InputPinMenu::InputPinMenu(int x, int y, int len, size_t limit) : 
-                   PinMenu(x, y, len, limit)
+                   PinMenu(nullptr, input_pin, x, y, len, limit)
 {
 }
 
+/*
 double distance(sf::Vector2f start, sf::Vector2f end)
 {
     double dx = end.x - start.x;
     double dy = end.y - start.y;
     return sqrt(dx * dx + dy * dy);
 }
-/*
+
 void InputPinMenu::click(sf::Vector2i mouse_position, size_t height)
 {
     size_t count  = _pins.size();

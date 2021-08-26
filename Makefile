@@ -52,18 +52,19 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/element.cpp \
-		src/input_pin_menu.cpp \
-		src/main.cpp \
+SOURCES       = src/main.cpp \
+		src/window.cpp \
 		src/pin.cpp \
-		src/pin_menu.cpp \
-		src/window.cpp 
-OBJECTS       = element.o \
-		input_pin_menu.o \
-		main.o \
+		src/pin_menu.cpp moc_pin.cpp \
+		moc_pin_menu.cpp \
+		moc_window.cpp
+OBJECTS       = main.o \
+		window.o \
 		pin.o \
 		pin_menu.o \
-		window.o
+		moc_pin.o \
+		moc_pin_menu.o \
+		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -145,12 +146,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		include/input_pin_menu.h \
 		include/pin.h \
 		include/pin_menu.h \
-		include/window.h src/element.cpp \
-		src/input_pin_menu.cpp \
-		src/main.cpp \
+		include/window.h src/main.cpp \
+		src/window.cpp \
 		src/pin.cpp \
-		src/pin_menu.cpp \
-		src/window.cpp
+		src/pin_menu.cpp
 QMAKE_TARGET  = qmake
 DESTDIR       = 
 TARGET        = qmake
@@ -330,7 +329,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents include/element.h include/input_pin_menu.h include/pin.h include/pin_menu.h include/window.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/element.cpp src/input_pin_menu.cpp src/main.cpp src/pin.cpp src/pin_menu.cpp src/window.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/pin.cpp src/pin_menu.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -363,8 +362,26 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_pin.cpp moc_pin_menu.cpp moc_window.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_pin.cpp moc_pin_menu.cpp moc_window.cpp
+moc_pin.cpp: include/pin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/electronic/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/electronic -I/home/s/Desktop/projects/electronic/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/pin.h -o moc_pin.cpp
+
+moc_pin_menu.cpp: include/pin_menu.h \
+		include/pin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/electronic/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/electronic -I/home/s/Desktop/projects/electronic/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/pin_menu.h -o moc_pin_menu.cpp
+
+moc_window.cpp: include/window.h \
+		include/pin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/electronic/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/electronic -I/home/s/Desktop/projects/electronic/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/window.h -o moc_window.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -382,25 +399,18 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_uic_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
-element.o: src/element.cpp include/element.h \
-		include/pin.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o element.o src/element.cpp
-
-input_pin_menu.o: src/input_pin_menu.cpp include/input_pin_menu.h \
-		include/pin_menu.h \
-		include/pin.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o input_pin_menu.o src/input_pin_menu.cpp
-
 main.o: src/main.cpp include/window.h \
-		include/input_pin_menu.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/element.h
+		include/pin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
+
+window.o: src/window.cpp include/window.h \
+		include/pin.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o src/window.cpp
 
 pin.o: src/pin.cpp include/pin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pin.o src/pin.cpp
@@ -409,12 +419,14 @@ pin_menu.o: src/pin_menu.cpp include/pin_menu.h \
 		include/pin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pin_menu.o src/pin_menu.cpp
 
-window.o: src/window.cpp include/window.h \
-		include/input_pin_menu.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/element.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o src/window.cpp
+moc_pin.o: moc_pin.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pin.o moc_pin.cpp
+
+moc_pin_menu.o: moc_pin_menu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pin_menu.o moc_pin_menu.cpp
+
+moc_window.o: moc_window.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_window.o moc_window.cpp
 
 ####### Install
 
