@@ -16,6 +16,7 @@ Element::Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules,
     for (size_t i = 0; i < input_pin_count; ++i)
     {
         _input_pins[i] = new Pin(this, wire, input_pin);
+        connect(_input_pins[i], SIGNAL(updateElement()), this, SLOT(updateStatus()));
         input_layout->addWidget(_input_pins[i]);
     }
     
@@ -87,11 +88,12 @@ void Element::updateStatus()
             _output_pins[i]->setStatus(false);
             return ;
         }
-        
+        //
+        //.toAscii();
         bool result = true;
-        for (size_t j = 0; j < _rules[i].count(); ++i)
+        for (size_t j = 0; j < _rules[i].length(); ++j)
         {
-            if (_rules[i].at(j) == '+')
+            if (_rules[i].at(j).unicode() == '+')
             {
                 if (result == true)
                 {
@@ -104,7 +106,7 @@ void Element::updateStatus()
                     continue;
                 }
             }
-            else if (_rules[i].at(j) == '!')
+            else if (_rules[i].at(j).unicode() == '!')
             {
                 result &= !_input_pins[_rules[i].at(++j).unicode() - 'a']->getStatus();
             }

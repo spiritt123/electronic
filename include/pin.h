@@ -1,9 +1,8 @@
 #pragma once
 
 #include <QPushButton>
-//#include "wire.h"
-class Wire;
 
+class Wire;
 
 enum pin_types
 {
@@ -31,6 +30,7 @@ public:
 
 signals:
     void click(Pin* pin);
+    void updateElement();
 
 private slots:
     void getPointPin();

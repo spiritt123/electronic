@@ -10,7 +10,7 @@ QPushButton#inpin
 {
     border-radius: 15px;
     max-width: 30px;
-    height: 30px;
+    min-height: 30px;
     background-position: center;
     margin-right: -5px;
 }
@@ -19,7 +19,7 @@ QPushButton#outpin
 {
     border-radius: 15px;
     max-width: 30px;
-    height: 30px;
+    min-height: 30px;
     background-position: center;
     margin-left: -5px;
 }

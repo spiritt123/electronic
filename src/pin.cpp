@@ -1,5 +1,6 @@
 #include "pin.h"
 #include "wire.h"
+#include "element.h"
 
 #include <QDebug>
 
@@ -50,6 +51,7 @@ void Pin::setStatus(bool status)
 
     if (_pin_type == output_pin && _neighbour != nullptr)
         _neighbour->setStatus(_status);
+    emit updateElement();
 }
 
 void Pin::setNeighbour(Pin *neighbour)

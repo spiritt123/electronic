@@ -21,8 +21,10 @@ public:
     QString getRuleByNumberPin(size_t number);
     std::vector<QString> getRules();
 
-private:
+public slots:
     void updateStatus();
+
+private:
     bool isCorrectLetterInRule(size_t number);
 
 protected:
