@@ -3,32 +3,46 @@
 #include <iostream>
 #include <cmath>
 
-InputPinMenu::InputPinMenu(int x, int y, int len, size_t limit) : 
-                   PinMenu(nullptr, input_pin, x, y, len, limit)
+InputPinMenu::InputPinMenu(QWidget *parent, QVBoxLayout *layout, Wire *wire, size_t limit) : 
+                   PinMenu(parent, layout, wire, output_pin, limit)
 {
 }
 
-/*
-double distance(sf::Vector2f start, sf::Vector2f end)
+void InputPinMenu::addPin()
 {
-    double dx = end.x - start.x;
-    double dy = end.y - start.y;
-    return sqrt(dx * dx + dy * dy);
-}
-
-void InputPinMenu::click(sf::Vector2i mouse_position, size_t height)
-{
-    size_t count  = _pins.size();
-    double part   = 0.8;
-    double offset = (1 - part) / 2 * height;
-    size_t i = ((mouse_position.y + _radius - offset) * (_pins.size() + 1) / (height * part)) - 1;
-    if (distance(sf::Vector2f(_x, offset + height * part * (i + 1) / (count + 1)),
-                 sf::Vector2f(mouse_position.x, mouse_position.y)) <= _radius)
+    if (_count < _limit)
     {
-        bool status = _pins[i].changeStatus();
-        Pin *pin = _pins[i].getNeighbour();
-        if (pin != nullptr)
-            pin->setStatus(status);
-        std::cout << "click on " << i + 1 << " pin\n";
+        QHBoxLayout *switch_switch = new QHBoxLayout();
+        QPushButton *switch_pin = new QPushButton("on/off");
+        Pin *pin = new Pin(this, _wire, _pins_type);
+        
+        connect(switch_pin, SIGNAL(clicked()), pin, SLOT(changeStatus()));
+
+        switch_switch->addWidget(switch_pin);
+        switch_switch->addWidget(pin);
+
+        _layout->insertLayout(2, switch_switch);
+        ++_count;
     }
-}*/
+}
+
+void InputPinMenu::removePin()
+{
+    if (_count > 0)
+    {
+        QLayoutItem *child;
+        if ((child = _layout->takeAt(2)) != 0)
+        {
+            auto button_child = child->layout()->takeAt(0);
+            button_child->widget()->hide();
+            delete button_child;
+
+            auto pin_child = child->layout()->takeAt(0);
+            pin_child->widget()->hide();
+            delete pin_child;
+
+            delete child;
+            --_count;
+        }
+    }
+}

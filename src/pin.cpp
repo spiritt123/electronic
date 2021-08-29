@@ -1,16 +1,22 @@
-#include <iostream>
-
 #include "pin.h"
+#include "wire.h"
 
-Pin::Pin(QWidget *parent, pin_types pin_type, bool status, Pin *neighbour) :
+#include <QDebug>
+
+Pin::Pin(QWidget *parent, Wire *wire, pin_types pin_type, bool status, Pin *neighbour) :
     QPushButton(parent),
     _pin_type(pin_type),
     _status(status),
     _neighbour(neighbour)
 {
-    this->setObjectName("pin");
+    if (pin_type == input_pin)
+        this->setObjectName("inpin");
+    else
+        this->setObjectName("outpin");
     this->setStyleSheet("background-color: black");
     connect(this, SIGNAL( clicked() ), this, SLOT( getPointPin() ));
+    if (wire != nullptr)
+        connect(this, SIGNAL( click(Pin*) ), (Wire*)wire, SLOT( createWire(Pin*) ));
 }
 
 Pin::~Pin()
@@ -28,11 +34,7 @@ bool Pin::changeStatus()
 {
     _status ^= 1;
     
-    if (_status == true)
-        this->setStyleSheet("background-color: red");
-    else
-        this->setStyleSheet("background-color: black");
-    std::cout << _status << "\n";
+    setStatus(_status);
 
     return _status;
 }
@@ -40,6 +42,14 @@ bool Pin::changeStatus()
 void Pin::setStatus(bool status)
 {
     _status = status;
+
+    if (_status == true)
+        this->setStyleSheet("background-color: red");
+    else
+        this->setStyleSheet("background-color: black");
+
+    if (_pin_type == output_pin && _neighbour != nullptr)
+        _neighbour->setStatus(_status);
 }
 
 void Pin::setNeighbour(Pin *neighbour)
@@ -79,10 +89,13 @@ void Pin::connectPin(Pin* neighbour)
         _status = neighbour->getStatus();
 }
 
-void Pin::disconnectPin(Pin* neighbour)
+void Pin::disconnectPin(Pin *neighbour)
 {
+    if (_neighbour == nullptr)
+        return ;
+
     if (neighbour != _neighbour)
-        return;
+        return ;
     
     Pin *buffer = _neighbour;
     _neighbour = nullptr;

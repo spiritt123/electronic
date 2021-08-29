@@ -1,15 +1,16 @@
 #pragma once
 
-#include <vector>
-
+#include <QWidget>
 #include "pin_menu.h"
+#include "wire.h"
 
 class InputPinMenu : public PinMenu
 {
 public:
-    InputPinMenu(int x = 0, int y = 0, int len = 50, size_t limit = 10);
+    InputPinMenu(QWidget *parent, QVBoxLayout *layout, Wire *wire, size_t limit = 10);
 
-    //void click(sf::Vector2i mouse_positio, size_t height);
+    void addPin();
+    void removePin();
 
 private:
 };

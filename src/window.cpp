@@ -3,33 +3,26 @@
 #include "window.h"
 #include "ui_mainwindow.h"
 #include <iostream>
+#include <QDebug>
 
-Window::Window(QMainWindow *parent, size_t height, size_t width) : 
+Window::Window(QMainWindow *parent, size_t width, size_t height) : 
     QMainWindow(parent),
     ui(new Ui::Window)
 {
     ui->setupUi(this);
 
-    //Pin *pin = new Pin(this);
-    //connect(pin, SIGNAL(click(Pin*)), this, SLOT(wire(Pin*)) );
-    setStyleSheet(
-            "QPushButton#pin {\n"
-                "border-radius: 15px;\n"
-                "max-width: 30px;\n"
-                "height: 30px;\n"
-                "background-position: center;\n"
-                "margin-left: 65px\n"
-                "}\n"
-                
-                );
-    
-    //ui->InputPins->insertWidget(2, pin);
+    setStyleSheet(loadStyle("css/style.css"));
 
-    _height = height;
-    _width = width;
-    //_in_menu = InputPinMenu(50, 0, _height);
-    _out_menu = new PinMenu(ui->OutputPinsList, output_pin, _width - 50, 0, _height);
-    _out_menu->setLayout(ui->OutputPins);
+    this->resize(width, height);
+
+    _wire = new Wire(this);
+
+    _in_menu = new InputPinMenu(ui->InputPinsList, ui->InputPins, _wire);
+    _out_menu = new PinMenu(ui->OutputPinsList, ui->OutputPins, _wire, input_pin);
+    _element_menu = new ElementMune(ui->ListElements, ui->ListElementsLayout, _wire);
+    //_element_menu->loadNewElementFormFile("elements/or.el");
+    //_element_menu->saveAllElementInFile("elements/or+.el");
+    
 }
 
 Window::~Window()
@@ -37,54 +30,39 @@ Window::~Window()
     delete ui;
 }
 
-void Window::wire(Pin *pin)
+QString Window::loadStyle(QString path)
 {
-    static Pin *first  = nullptr;
+    QString data;
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return "";
 
-    if (first->getPinType() == pin->getPinType())
-        return ;
-    if (first == nullptr)
-    {
-        first = pin;
-        std::cout << "first " << pin << "\n";
-        return ;
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        data += line + "\n";
     }
-
-    
-    first = nullptr;
-    std::cout << "second " <<  pin << "\n";
+    return data;
 }
-    
+   
+void Window::on_AddInputPin_clicked()
+{
+    _in_menu->addPin();
+}
+
+void Window::on_RemoveInputPin_clicked()
+{
+    _in_menu->removePin();
+}
+
 void Window::on_AddOutputPin_clicked()
 {
     _out_menu->addPin();
-}
-
-void Window::on_AddInputPin_clicked()
-{
-
 }
 
 void Window::on_RemoveOutputPin_clicked()
 {
     _out_menu->removePin();
 }
-
-void Window::on_RemoveInputPin_clicked()
-{
-
-}
-
-/*
-void Window::wire()
-{
-    Pin *start = _in_menu.getPinForNumber(0);
-    Pin *end   = _out_menu.getPinForNumber(0);
-    if (start != nullptr)
-        start->setNeighbour(end);
-    if (end != nullptr)
-        end->setNeighbour(start);
-}
-*/
 
 

@@ -1,30 +1,32 @@
-//#pragma once
-#ifndef ELEMENT_H_
-#define ELEMENT_H_
+#pragma once
 
+#include <QWidget>
+
+#include <vector>
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "pin.h"
+#include "wire.h"
 
-class Element
+class Element : public QWidget
 {
+    Q_OBJECT
 public:
-    Element(size_t input_pin_count = 2, std::string rule = "ab");
+    explicit Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules, QWidget *parent = 0);
 
-    bool getStatus();
-    std::string getRule();
+    bool getStatusOutpuPinByNumber(size_t number);
+    size_t getCountInputPins();
+    size_t getCountOutputPins();
+    QString getRuleByNumberPin(size_t number);
+    std::vector<QString> getRules();
 
 private:
     void updateStatus();
-    bool isCorrectLetterInRule();
+    bool isCorrectLetterInRule(size_t number);
 
 protected:
-    bool _status;
-    std::string _rule;
+    std::vector<QString> _rules;
     std::vector<Pin*> _input_pins;
-    Pin *_output;
+    std::vector<Pin*> _output_pins;
 };
-
-#endif

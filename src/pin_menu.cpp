@@ -2,16 +2,14 @@
 #include <iostream>
 #include <cmath>
 
-PinMenu::PinMenu(QWidget *parent, pin_types pins_type, 
-                 int x, int y, int len, size_t limit) :
+PinMenu::PinMenu(QWidget *parent, QVBoxLayout *layout, Wire *wire, pin_types pins_type, size_t limit) :
     QWidget(parent),
-    _x(x),
-    _y(y),
-    _len(len),
+    _layout(layout),
+    _wire(wire),
     _limit(limit),
-    _radius(15),
     _pins_type(pins_type)
 {
+    _radius = 15;
     _count = 0;
 }
 
@@ -29,7 +27,7 @@ void PinMenu::addPin()
 {
     if (_count < _limit)
     {
-        _parent->insertWidget(2, new Pin(this, _pins_type));
+        _layout->insertWidget(2, new Pin(this, _wire, _pins_type));
         ++_count;
     }
 }
@@ -39,7 +37,7 @@ void PinMenu::removePin()
     if (_count > 0)
     {
         QLayoutItem *child;
-        if ((child = _parent->takeAt(2)) != 0)
+        if ((child = _layout->takeAt(2)) != 0)
         {
             child->widget()->hide();
             delete child;
@@ -54,7 +52,7 @@ Pin* PinMenu::getPinForNumber(size_t number)
     if (number >= _count)
         return nullptr;
     QLayoutItem *child;
-    return (Pin*)_parent->takeAt(number);
+    return qobject_cast<Pin*>(_layout->takeAt(number)->widget());
 }
 
 size_t PinMenu::getLimit()

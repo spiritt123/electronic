@@ -4,21 +4,16 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include "pin.h"
+#include "wire.h"
 
 class PinMenu : public QWidget
 {
     Q_OBJECT
 public:
-    PinMenu(QWidget *parent = 0, pin_types pins_type = output_pin, 
-            int x = 0, int y = 0, int len = 50, size_t limit = 10);
+    PinMenu(QWidget *parent = 0, QVBoxLayout *layout = 0, Wire *wire = nullptr, pin_types pins_type = output_pin, size_t limit = 10);
 
     ~PinMenu();
 
-    void setLayout(QVBoxLayout *parent)
-    {
-        _parent = parent;
-    };
- 
     void setRadiusPin(double radius);
     void addPin();
     void removePin();
@@ -30,8 +25,8 @@ public:
 
 protected:
     size_t _count, _limit;
-    int _x, _y, _len;
     double _radius;
     pin_types _pins_type;
-    QVBoxLayout *_parent;
+    QVBoxLayout *_layout;
+    Wire *_wire;
 };

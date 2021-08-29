@@ -1,6 +1,9 @@
 #pragma once
 
 #include <QPushButton>
+//#include "wire.h"
+class Wire;
+
 
 enum pin_types
 {
@@ -12,10 +15,8 @@ class Pin : public QPushButton
 {
     Q_OBJECT
 public:
-    Pin(QWidget *parent, pin_types pin_type = input_pin, bool status = false, Pin *neighbour = nullptr);
+    Pin(QWidget *parent, Wire *wire, pin_types pin_type = input_pin, bool status = false, Pin *neighbour = nullptr);
     ~Pin();
-
-    bool changeStatus();
 
     void setStatus(bool status);
     void setNeighbour(Pin *neighbour);
@@ -33,6 +34,8 @@ signals:
 
 private slots:
     void getPointPin();
+    bool changeStatus();
+
 
 private:
     bool _status;

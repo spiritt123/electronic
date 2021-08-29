@@ -1,0 +1,35 @@
+QPushButton#pin
+{
+    border-radius: 15px;
+    max-width: 30px;
+    height: 30px;
+    background-position: center;
+}
+
+QPushButton#inpin
+{
+    border-radius: 15px;
+    max-width: 30px;
+    height: 30px;
+    background-position: center;
+    margin-right: -5px;
+}
+
+QPushButton#outpin
+{
+    border-radius: 15px;
+    max-width: 30px;
+    height: 30px;
+    background-position: center;
+    margin-left: -5px;
+}
+
+QMainWindow
+{
+    background-color: #535c70;
+}
+
+QPushButton
+{
+    background-color: #61f22c;
+}
