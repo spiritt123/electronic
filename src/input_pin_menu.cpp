@@ -1,7 +1,4 @@
 #include "input_pin_menu.h"
-#include "pin.h"
-#include <iostream>
-#include <cmath>
 
 InputPinMenu::InputPinMenu(QWidget *parent, QVBoxLayout *layout, Wire *wire, size_t limit) : 
                    PinMenu(parent, layout, wire, output_pin, limit)

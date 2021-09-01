@@ -18,7 +18,9 @@ SOURCES += \
     src/input_pin_menu.cpp \
     src/element.cpp \
     src/element_menu.cpp \
-    src/wire.cpp
+    src/wire.cpp \
+    src/new_element_button.cpp \
+    src/map.cpp
 
 #src/*.cpp
 #DESTDIR = $$[QT_INSTALL_PLUGINS]/generic

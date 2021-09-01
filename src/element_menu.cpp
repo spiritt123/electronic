@@ -1,10 +1,11 @@
 #include "element_menu.h"
 #include <QDebug>
 
-ElementMune::ElementMune(QWidget *parant, QHBoxLayout *layout, Wire *wire) : 
+ElementMune::ElementMune(QWidget *parant, QHBoxLayout *layout, Wire *wire, Map *map) : 
     QWidget(parant),
     _layout(layout),
-    _wire(wire)
+    _wire(wire),
+    _map(map)
 {
     createStartElements();
 }
@@ -36,19 +37,19 @@ void ElementMune::loadNewElementFormFile(QString path)
             rules[i] = in.readLine();
         }
 
-        Element *new_element = new Element(_wire, in_pin, rules, this);
+        Element *new_element = new Element(_wire, in_pin, rules, name, this);
         addNewElement(new_element, name);
     }
 }
 
 void ElementMune::addNewElement(Element *element, QString name_element)
 {
-    QPushButton *element_button = new QPushButton(name_element);
-    //connect to create new element on global map !!!!
-    element_button->setFixedSize( 20 + name_element.size() * 10, 50 );
+    NewElementButton *element_button = new NewElementButton((Element*)element, name_element, this);
+    connect(element_button, SIGNAL(click(Element*)), _map, SLOT(addElement(Element*)));
+
     _layout->insertWidget(_layout->count() - 1, element_button);
     element->hide();
-    _elements.push_back(element);
+    //_elements.push_back(element);
 }
 
 void ElementMune::saveAllElementInFile(QString path)
@@ -82,7 +83,7 @@ void ElementMune::saveAllElementInFile(QString path)
 
 void ElementMune::createStartElements()
 {
-    addNewElement(new Element(_wire, 2, {"ab"}, this), "and");
-    addNewElement(new Element(_wire, 2, {"ab"}, this), "not");
+    addNewElement(new Element(_wire, 2, {"ab"}, "and", qobject_cast<QWidget*>(_map->parent())), "and");
+    addNewElement(new Element(_wire, 1, {"!a"}, "not", qobject_cast<QWidget*>(_map->parent())), "not");
 }    
  

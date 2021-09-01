@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+
 #include "pin.h"
 
 class Wire : public QObject

@@ -1,12 +1,11 @@
 #include "element.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
 #include <QDebug>
 
-Element::Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules, QWidget *parent) : 
+Element::Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules, QString name, QWidget *parent) : 
     QWidget(parent),
-    _rules(rules)
+    _wire(wire),
+    _rules(rules),
+    _name(name)
 {
     QHBoxLayout *layout = new QHBoxLayout();
     QVBoxLayout *input_layout = new QVBoxLayout();
@@ -32,15 +31,34 @@ Element::Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules,
                             _input_pins.size() : 
                             _output_pins.size()) * 30 + 10;
     body->resize(50, height_body);
-    body->setMinimumSize(50, height_body);
-    
     body->setStyleSheet("background-color: #ee7dd2;");
+    QLabel *label = new QLabel(body);
+    QHBoxLayout *l = new QHBoxLayout();
+    label->setText(name);
+    l->addWidget(label);
+    body->setLayout(l);
 
     layout->addLayout(input_layout);
     layout->addWidget(body);
     layout->addLayout(output_layout);
 
     this->setLayout(layout);
+}
+
+void Element::mousePressEvent(QMouseEvent *e)
+{
+    if (e->button() == Qt::LeftButton)
+    {
+        _position = e->globalPos();
+    }
+}
+
+void Element::mouseMoveEvent(QMouseEvent *e)
+{
+    QPoint dt = QPoint(_position - e->globalPos());
+    this->move(this->pos() - dt);
+
+    _position = e->globalPos();
 }
 
 bool Element::getStatusOutpuPinByNumber(size_t number)
@@ -72,7 +90,6 @@ QString Element::getRuleByNumberPin(size_t number)
     return _rules[number];
 }
 
-
 std::vector<QString> Element::getRules()
 {
     return _rules;
@@ -88,7 +105,6 @@ void Element::updateStatus()
             _output_pins[i]->setStatus(false);
             return ;
         }
-        //
         //.toAscii();
         bool result = true;
         for (size_t j = 0; j < _rules[i].length(); ++j)
@@ -149,4 +165,9 @@ bool Element::isCorrectLetterInRule(size_t number)
     if (state == 2)
         return true;
     return false;
+}
+
+Element* Element::copy()
+{
+    return new Element(_wire, _input_pins.size(), _rules, _name, qobject_cast<QWidget*>(this->parent()));
 }

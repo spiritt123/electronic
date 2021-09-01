@@ -14,7 +14,11 @@ class Pin : public QPushButton
 {
     Q_OBJECT
 public:
-    Pin(QWidget *parent, Wire *wire, pin_types pin_type = input_pin, bool status = false, Pin *neighbour = nullptr);
+    Pin(QWidget *parent, 
+        Wire *wire, 
+        pin_types pin_type = input_pin, 
+        bool status = false, 
+        Pin *neighbour = nullptr);
     ~Pin();
 
     void setStatus(bool status);
@@ -27,6 +31,10 @@ public:
 
     void connectPin(Pin* neighbour);
     void disconnectPin(Pin* neighbour);
+
+    void setRule(QString rule);
+    QString getRule();
+    void clearOutPath();
 
 signals:
     void click(Pin* pin);

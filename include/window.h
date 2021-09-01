@@ -1,16 +1,17 @@
 #pragma once
 
-#include <vector>
-#include "pin.h"
-#include "pin_menu.h"
-#include "input_pin_menu.h"
-#include "element_menu.h"
-#include "wire.h"
-
 #include <QMainWindow>
 #include <QString>
 #include <QFile>
 #include <QTextStream>
+
+#include <vector>
+
+#include "pin_menu.h"
+#include "input_pin_menu.h"
+#include "element_menu.h"
+#include "wire.h"
+#include "map.h"
 
 namespace Ui
 {
@@ -38,6 +39,7 @@ private:
     PinMenu *_out_menu;
     ElementMune *_element_menu;
     Wire *_wire;
+    Map *_map;
 
     Ui::Window *ui;
 };

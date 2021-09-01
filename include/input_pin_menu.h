@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+
 #include "pin_menu.h"
 #include "wire.h"
 

@@ -1,6 +1,5 @@
 #include "pin.h"
 #include "wire.h"
-#include "element.h"
 
 #include <QDebug>
 
@@ -14,8 +13,11 @@ Pin::Pin(QWidget *parent, Wire *wire, pin_types pin_type, bool status, Pin *neig
         this->setObjectName("inpin");
     else
         this->setObjectName("outpin");
+    
     this->setStyleSheet("background-color: black");
+    
     connect(this, SIGNAL( clicked() ), this, SLOT( getPointPin() ));
+    
     if (wire != nullptr)
         connect(this, SIGNAL( click(Pin*) ), (Wire*)wire, SLOT( createWire(Pin*) ));
 }
@@ -88,7 +90,7 @@ void Pin::connectPin(Pin* neighbour)
     
     // Получение нового сигнала после подключения.
     if (_pin_type == input_pin)
-        _status = neighbour->getStatus();
+        setStatus(neighbour->getStatus());
 }
 
 void Pin::disconnectPin(Pin *neighbour)
@@ -105,8 +107,28 @@ void Pin::disconnectPin(Pin *neighbour)
 
     if (_pin_type == input_pin)
     {
-        _status = false;
+        setStatus(false);
         // перерасчёт сигнала!!!
     }
 }
 
+/*
+void Pin::setRule(QString rule)
+{
+    _rule = rule;
+}
+
+QString Pin::getRule()
+{
+    return _rule;
+}
+
+void Pin::clearOutPath()
+{
+    if (_pin_type == input_pin)
+    {
+        _rule = "";
+    }
+}
+
+*/

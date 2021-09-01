@@ -1,6 +1,5 @@
 #include "window.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 #include <QDebug>
 
 Window::Window(QMainWindow *parent, size_t width, size_t height) : 
@@ -17,10 +16,11 @@ Window::Window(QMainWindow *parent, size_t width, size_t height) :
 
     _in_menu = new InputPinMenu(ui->InputPinsList, ui->InputPins, _wire);
     _out_menu = new PinMenu(ui->OutputPinsList, ui->OutputPins, _wire, input_pin);
-    _element_menu = new ElementMune(ui->ListElements, ui->ListElementsLayout, _wire);
+
+    _map = new Map(ui->Items_field);
+    _element_menu = new ElementMune(ui->ListElements, ui->ListElementsLayout, _wire, _map);
     //_element_menu->loadNewElementFormFile("elements/or.el");
     //_element_menu->saveAllElementInFile("elements/or+.el");
-    
 }
 
 Window::~Window()

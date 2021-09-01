@@ -1,8 +1,10 @@
 #pragma once
 
-#include <vector>
 #include <QWidget>
 #include <QVBoxLayout>
+
+#include <vector>
+
 #include "pin.h"
 #include "wire.h"
 

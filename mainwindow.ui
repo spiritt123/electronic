@@ -129,7 +129,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QWidget" name="Items_plant" native="true">
+           <widget class="QWidget" name="Items_field" native="true">
             <property name="minimumSize">
              <size>
               <width>39</width>
@@ -138,8 +138,8 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>254</width>
-              <height>258</height>
+              <width>854</width>
+              <height>858</height>
              </size>
             </property>
            </widget>

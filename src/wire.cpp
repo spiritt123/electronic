@@ -1,6 +1,6 @@
 #include "wire.h"
 #include <QDebug>
-#include <QPoint>
+//#include <QPoint>
 
 Wire::Wire(QObject *parent) : QObject(parent)
 {
@@ -14,23 +14,27 @@ Wire::~Wire()
 void Wire::createWire(Pin *pin)
 {
     static Pin *first  = nullptr;
+    static Pin *second = nullptr;
 
     if (first == nullptr)
     {
         first = pin;
-        qDebug() << "first " << pin;
+        qDebug() << "first " << first;
         return ;
     }
-    if (first->getPinType() == pin->getPinType())
+
+    second = pin;
+    if (first->getPinType() == second->getPinType())
         return ;
 
-    qDebug() << "second " <<  pin;
+    qDebug() << "second " <<  second;
 
     first->disconnectPin(first->getNeighbour());
-    pin->disconnectPin(pin->getNeighbour());
-    first->connectPin(pin);
-    pin->connectPin(first);
+    second->disconnectPin(second->getNeighbour());
+    first->connectPin(second);
+    second->connectPin(first);
 
-    first = nullptr;
+    first  = nullptr;
+    second = nullptr;
 }
 

@@ -1,6 +1,4 @@
 #include "pin_menu.h"
-#include <iostream>
-#include <cmath>
 
 PinMenu::PinMenu(QWidget *parent, QVBoxLayout *layout, Wire *wire, pin_types pins_type, size_t limit) :
     QWidget(parent),
