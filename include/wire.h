@@ -1,20 +1,24 @@
 #pragma once
 
-#include <QObject>
+#include <QWidget>
 
 #include "pin.h"
 
-class Wire : public QObject
+class Map;
+
+class Wire : public QWidget
 {
     Q_OBJECT
 public:
-    Wire(QObject *parent);
+    Wire(QWidget *parent, Map *map);
     ~Wire();
 
 public slots:
     void createWire(Pin *pin);
 
 private:
+    Map *_map;
+    //std::vector<std::pair<Pin*, Pin*>> _wires;
     //Pin *p;
 };
 

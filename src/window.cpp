@@ -1,8 +1,10 @@
 #include "window.h"
 #include "ui_mainwindow.h"
+#include "input.h"
+#include "output.h"
 #include <QDebug>
 
-Window::Window(QMainWindow *parent, size_t width, size_t height) : 
+Window::Window(QMainWindow *parent, QString path) : 
     QMainWindow(parent),
     ui(new Ui::Window)
 {
@@ -10,17 +12,11 @@ Window::Window(QMainWindow *parent, size_t width, size_t height) :
 
     setStyleSheet(loadStyle("css/style.css"));
 
-    this->resize(width, height);
-
-    _wire = new Wire(this);
-
-    _in_menu = new InputPinMenu(ui->InputPinsList, ui->InputPins, _wire);
-    _out_menu = new PinMenu(ui->OutputPinsList, ui->OutputPins, _wire, input_pin);
+    this->resize(800, 600);
 
     _map = new Map(ui->Items_field);
-    _element_menu = new ElementMune(ui->ListElements, ui->ListElementsLayout, _wire, _map);
-    //_element_menu->loadNewElementFormFile("elements/or.el");
-    //_element_menu->saveAllElementInFile("elements/or+.el");
+
+    _element_menu = new ElementMenu(ui->ListElements, ui->ListElementsLayout, _map);
 }
 
 Window::~Window()
@@ -45,22 +41,14 @@ QString Window::loadStyle(QString path)
    
 void Window::on_AddInputPin_clicked()
 {
-    _in_menu->addPin();
-}
-
-void Window::on_RemoveInputPin_clicked()
-{
-    _in_menu->removePin();
+    Input *input = new Input(_map, ui->Items_field);
+    input->show();
 }
 
 void Window::on_AddOutputPin_clicked()
 {
-    _out_menu->addPin();
-}
-
-void Window::on_RemoveOutputPin_clicked()
-{
-    _out_menu->removePin();
+    Output *output = new Output(_map, ui->Items_field);
+    output->show();
 }
 
 

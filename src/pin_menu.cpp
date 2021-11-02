@@ -25,7 +25,7 @@ void PinMenu::addPin()
 {
     if (_count < _limit)
     {
-        _layout->insertWidget(2, new Pin(this, _wire, _pins_type));
+        _layout->insertWidget(2, new Pin(this, _wire, "",  _pins_type));
         ++_count;
     }
 }

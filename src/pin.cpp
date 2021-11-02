@@ -3,8 +3,9 @@
 
 #include <QDebug>
 
-Pin::Pin(QWidget *parent, Wire *wire, pin_types pin_type, bool status, Pin *neighbour) :
+Pin::Pin(QWidget *parent, Wire *wire, QString rule, pin_types pin_type, bool status, Pin *neighbour) :
     QPushButton(parent),
+    _rule(rule),
     _pin_type(pin_type),
     _status(status),
     _neighbour(neighbour)
@@ -112,7 +113,7 @@ void Pin::disconnectPin(Pin *neighbour)
     }
 }
 
-/*
+
 void Pin::setRule(QString rule)
 {
     _rule = rule;
@@ -131,4 +132,72 @@ void Pin::clearOutPath()
     }
 }
 
-*/
+void Pin::updateStatus(std::vector<Pin*> input_pins)
+{
+    if (!isCorrectLetterInRule(input_pins.size()))
+    {
+        std::cerr << "invalid characters in rule\n";
+        setStatus(false);
+        return ;
+    }
+    //.toAscii();
+    bool result = true;
+    for (size_t j = 0; j < _rule.length(); ++j)
+    {
+        if (_rule.at(j).unicode() == '+')
+        {
+            if (result == true)
+            {
+                setStatus(true);
+                return ;
+            }
+            else
+            {
+                result = true;
+                continue;
+            }
+        }
+        else if (_rule.at(j).unicode() == '!')
+        {
+            result &= !input_pins[_rule.at(++j).unicode() - 'a']->getStatus();
+        }
+        else
+        {
+            result &= input_pins[_rule.at(j).unicode() - 'a']->getStatus();
+        }
+    }
+        qDebug() << result;
+    setStatus(result);
+}
+
+bool Pin::isCorrectLetterInRule(int count_input_pins)
+{
+    int table[3][3] = 
+    {
+//      !  c  +
+/*0*/   1, 2, 9,
+/*1*/   9, 2, 9,
+/*2*/   1, 2, 0
+    };
+    int state = 0;
+
+    for (size_t i = 0; i < _rule.count(); ++i)
+    {
+        if (_rule.at(i) == '+') 
+            state = table[state][2];
+        else if (_rule.at(i) == '!')
+            state = table[state][0];
+        else if (_rule.at(i) >= 'a' && 
+                 _rule.at(i).unicode() <  'a' + count_input_pins)
+            state = table[state][1];
+        else
+            return false;
+
+        if (state == 9)
+            return false;
+    }
+
+    if (state == 2)
+        return true;
+    return false;
+}

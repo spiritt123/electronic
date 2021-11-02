@@ -1,6 +1,6 @@
 #include "new_element_button.h"
 
-NewElementButton::NewElementButton(Element *element, QString name, QWidget *parent) :
+NewElementButton::NewElementButton(IElement *element, QString name, QWidget *parent) :
     QPushButton(parent),
     _element(element)
 {
@@ -15,6 +15,8 @@ NewElementButton::~NewElementButton()
 
 void NewElementButton::addElement()
 {
-    emit click(_element->copy());
+    IElement *s;
+    emit click(s = _element->copy());
+    s->show();
 }
 

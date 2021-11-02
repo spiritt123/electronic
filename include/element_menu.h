@@ -7,20 +7,19 @@
 #include <QTextStream>
 
 #include "element.h"
-#include "wire.h"
 #include "map.h"
-#include "pin.h"
 #include "new_element_button.h"
+#include "input.h"
 
-class ElementMune : public QWidget
+class ElementMenu : public QWidget
 {
     Q_OBJECT
 public:
-    ElementMune(QWidget *parant, QHBoxLayout *layout, Wire *wire, Map *map);
-    ~ElementMune();
+    ElementMenu(QWidget *parant, QHBoxLayout *layout, Map *map);
+    ~ElementMenu();
 
     void loadNewElementFormFile(QString path);
-    void addNewElement(Element *element, QString name_element);
+    void addNewElement(IElement *element, QString name_element);
     void saveAllElementInFile(QString path);
 
 private:
@@ -29,7 +28,6 @@ private:
 private:
     QHBoxLayout *_layout;
     std::vector<Element*> _elements;
-    Wire *_wire;
     Map *_map;
 };
 

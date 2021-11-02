@@ -11,7 +11,9 @@ void InputPinMenu::addPin()
     {
         QHBoxLayout *switch_switch = new QHBoxLayout();
         QPushButton *switch_pin = new QPushButton("on/off");
-        Pin *pin = new Pin(this, _wire, _pins_type);
+        QString rule;
+        rule += (char)((int)'a' + _count);
+        Pin *pin = new Pin(this, _wire, rule, _pins_type);
         
         connect(switch_pin, SIGNAL(clicked()), pin, SLOT(changeStatus()));
 

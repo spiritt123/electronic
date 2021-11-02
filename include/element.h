@@ -12,37 +12,22 @@
 #include <iostream>
 #include <string>
 
-#include "pin.h"
-#include "wire.h"
+#include "ielement.h"
+#include "map.h"
+#include "inpin.h"
+#include "outpin.h"
 
-class Element : public QWidget
+class Element : public IElement
 {
     Q_OBJECT
 public:
-    explicit Element(Wire *wire, size_t input_pin_count, std::vector<QString> rules, QString name = "", QWidget *parent = 0);
+    explicit Element(Map *map, size_t input_pin_count, std::vector<QString> rules, QString name = "", QWidget *parent = 0);
 
-    void mouseMoveEvent(QMouseEvent *e);
-    void mousePressEvent(QMouseEvent *e);
+    virtual IElement* copy() override;
 
-    bool getStatusOutpuPinByNumber(size_t number);
-    size_t getCountInputPins();
-    size_t getCountOutputPins();
-    QString getRuleByNumberPin(size_t number);
-    std::vector<QString> getRules();
-
-    Element* copy();
-
-public slots:
-    void updateStatus();
-
-private:
-    bool isCorrectLetterInRule(size_t number);
+//public slots:
+//    void updateStatusAllPins();
 
 protected:
-    Wire *_wire;
-    std::vector<QString> _rules;
-    std::vector<Pin*> _input_pins;
-    std::vector<Pin*> _output_pins;
     QString _name;
-    QPoint _position;
 };

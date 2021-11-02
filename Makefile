@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = main.out1.0.0
-DISTDIR = /home/s/Desktop/copy/.tmp/main.out1.0.0
+DISTDIR = /home/s/Desktop/projects/copy_kurs/.tmp/main.out1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -54,39 +54,53 @@ OBJECTS_DIR   = ./
 
 SOURCES       = src/main.cpp \
 		src/window.cpp \
-		src/pin.cpp \
-		src/pin_menu.cpp \
-		src/input_pin_menu.cpp \
+		src/ipin.cpp \
+		src/inpin.cpp \
+		src/outpin.cpp \
+		src/ielement.cpp \
+		src/input.cpp \
+		src/output.cpp \
 		src/element.cpp \
 		src/element_menu.cpp \
-		src/wire.cpp \
 		src/new_element_button.cpp \
-		src/map.cpp moc_element.cpp \
+		src/map.cpp \
+		src/menu.cpp \
+		src/settings.cpp moc_element.cpp \
 		moc_element_menu.cpp \
+		moc_ielement.cpp \
+		moc_input.cpp \
+		moc_ipin.cpp \
 		moc_map.cpp \
+		moc_menu.cpp \
 		moc_new_element_button.cpp \
-		moc_pin.cpp \
-		moc_pin_menu.cpp \
-		moc_window.cpp \
-		moc_wire.cpp
+		moc_output.cpp \
+		moc_settings.cpp \
+		moc_window.cpp
 OBJECTS       = main.o \
 		window.o \
-		pin.o \
-		pin_menu.o \
-		input_pin_menu.o \
+		ipin.o \
+		inpin.o \
+		outpin.o \
+		ielement.o \
+		input.o \
+		output.o \
 		element.o \
 		element_menu.o \
-		wire.o \
 		new_element_button.o \
 		map.o \
+		menu.o \
+		settings.o \
 		moc_element.o \
 		moc_element_menu.o \
+		moc_ielement.o \
+		moc_input.o \
+		moc_ipin.o \
 		moc_map.o \
+		moc_menu.o \
 		moc_new_element_button.o \
-		moc_pin.o \
-		moc_pin_menu.o \
-		moc_window.o \
-		moc_wire.o
+		moc_output.o \
+		moc_settings.o \
+		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -129,6 +143,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -145,6 +163,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -165,22 +184,30 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		qmake.pro include/element.h \
 		include/element_menu.h \
-		include/input_pin_menu.h \
+		include/ielement.h \
+		include/inpin.h \
+		include/input.h \
+		include/ipin.h \
 		include/map.h \
+		include/menu.h \
 		include/new_element_button.h \
-		include/pin.h \
-		include/pin_menu.h \
-		include/window.h \
-		include/wire.h src/main.cpp \
+		include/outpin.h \
+		include/output.h \
+		include/settings.h \
+		include/window.h src/main.cpp \
 		src/window.cpp \
-		src/pin.cpp \
-		src/pin_menu.cpp \
-		src/input_pin_menu.cpp \
+		src/ipin.cpp \
+		src/inpin.cpp \
+		src/outpin.cpp \
+		src/ielement.cpp \
+		src/input.cpp \
+		src/output.cpp \
 		src/element.cpp \
 		src/element_menu.cpp \
-		src/wire.cpp \
 		src/new_element_button.cpp \
-		src/map.cpp
+		src/map.cpp \
+		src/menu.cpp \
+		src/settings.cpp
 QMAKE_TARGET  = main.out
 DESTDIR       = 
 TARGET        = main.out
@@ -189,7 +216,7 @@ TARGET        = main.out
 first: all
 ####### Build rules
 
-main.out: ui_mainwindow.h $(OBJECTS)  
+main.out: ui_mainwindow.h ui_menu.h ui_settings.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: qmake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -234,6 +261,10 @@ Makefile: qmake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -250,6 +281,7 @@ Makefile: qmake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -312,6 +344,10 @@ Makefile: qmake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
@@ -328,6 +364,7 @@ Makefile: qmake.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -362,9 +399,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/element.h include/element_menu.h include/input_pin_menu.h include/map.h include/new_element_button.h include/pin.h include/pin_menu.h include/window.h include/wire.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/pin.cpp src/pin_menu.cpp src/input_pin_menu.cpp src/element.cpp src/element_menu.cpp src/wire.cpp src/new_element_button.cpp src/map.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents include/element.h include/element_menu.h include/ielement.h include/inpin.h include/input.h include/ipin.h include/map.h include/menu.h include/new_element_button.h include/outpin.h include/output.h include/settings.h include/window.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/ipin.cpp src/inpin.cpp src/outpin.cpp src/ielement.cpp src/input.cpp src/output.cpp src/element.cpp src/element_menu.cpp src/new_element_button.cpp src/map.cpp src/menu.cpp src/settings.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui menu.ui settings.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -396,83 +433,130 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_element.cpp moc_element_menu.cpp moc_map.cpp moc_new_element_button.cpp moc_pin.cpp moc_pin_menu.cpp moc_window.cpp moc_wire.cpp
+compiler_moc_header_make_all: moc_element.cpp moc_element_menu.cpp moc_ielement.cpp moc_input.cpp moc_ipin.cpp moc_map.cpp moc_menu.cpp moc_new_element_button.cpp moc_output.cpp moc_settings.cpp moc_window.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_element.cpp moc_element_menu.cpp moc_map.cpp moc_new_element_button.cpp moc_pin.cpp moc_pin_menu.cpp moc_window.cpp moc_wire.cpp
+	-$(DEL_FILE) moc_element.cpp moc_element_menu.cpp moc_ielement.cpp moc_input.cpp moc_ipin.cpp moc_map.cpp moc_menu.cpp moc_new_element_button.cpp moc_output.cpp moc_settings.cpp moc_window.cpp
 moc_element.cpp: include/element.h \
-		include/pin.h \
-		include/wire.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/map.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/element.h -o moc_element.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/element.h -o moc_element.cpp
 
 moc_element_menu.cpp: include/element_menu.h \
 		include/element.h \
-		include/pin.h \
-		include/wire.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
 		include/map.h \
 		include/new_element_button.h \
+		include/input.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/element_menu.h -o moc_element_menu.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/element_menu.h -o moc_element_menu.cpp
+
+moc_ielement.cpp: include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/ielement.h -o moc_ielement.cpp
+
+moc_input.cpp: include/input.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/input.h -o moc_input.cpp
+
+moc_ipin.cpp: include/ipin.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/ipin.h -o moc_ipin.cpp
 
 moc_map.cpp: include/map.h \
-		include/element.h \
-		include/pin.h \
-		include/wire.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/map.h -o moc_map.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/map.h -o moc_map.cpp
+
+moc_menu.cpp: include/menu.h \
+		include/window.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/settings.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/menu.h -o moc_menu.cpp
 
 moc_new_element_button.cpp: include/new_element_button.h \
 		include/element.h \
-		include/pin.h \
-		include/wire.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/map.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/new_element_button.h -o moc_new_element_button.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/new_element_button.h -o moc_new_element_button.cpp
 
-moc_pin.cpp: include/pin.h \
+moc_output.cpp: include/output.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/pin.h -o moc_pin.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/output.h -o moc_output.cpp
 
-moc_pin_menu.cpp: include/pin_menu.h \
-		include/pin.h \
-		include/wire.h \
+moc_settings.cpp: include/settings.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/pin_menu.h -o moc_pin_menu.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/settings.h -o moc_settings.cpp
 
 moc_window.cpp: include/window.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/wire.h \
-		include/input_pin_menu.h \
-		include/element_menu.h \
-		include/element.h \
 		include/map.h \
-		include/new_element_button.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/window.h -o moc_window.cpp
-
-moc_wire.cpp: include/wire.h \
-		include/pin.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/copy/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/copy -I/home/s/Desktop/copy/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/wire.h -o moc_wire.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/s/Desktop/projects/copy_kurs/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/s/Desktop/projects/copy_kurs -I/home/s/Desktop/projects/copy_kurs/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include include/window.h -o moc_window.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_menu.h ui_settings.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_menu.h ui_settings.h
 ui_mainwindow.h: mainwindow.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
+
+ui_menu.h: menu.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic menu.ui -o ui_menu.h
+
+ui_settings.h: settings.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic settings.ui -o ui_settings.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -485,71 +569,123 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: src/main.cpp include/window.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/wire.h \
-		include/input_pin_menu.h \
-		include/element_menu.h \
-		include/element.h \
 		include/map.h \
-		include/new_element_button.h
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 window.o: src/window.cpp include/window.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/wire.h \
-		include/input_pin_menu.h \
-		include/element_menu.h \
-		include/element.h \
 		include/map.h \
-		include/new_element_button.h \
-		ui_mainwindow.h
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		ui_mainwindow.h \
+		include/input.h \
+		include/output.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o src/window.cpp
 
-pin.o: src/pin.cpp include/pin.h \
-		include/wire.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pin.o src/pin.cpp
+ipin.o: src/ipin.cpp include/ipin.h \
+		include/map.h \
+		include/ielement.h \
+		include/inpin.h \
+		include/outpin.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ipin.o src/ipin.cpp
 
-pin_menu.o: src/pin_menu.cpp include/pin_menu.h \
-		include/pin.h \
-		include/wire.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pin_menu.o src/pin_menu.cpp
+inpin.o: src/inpin.cpp include/inpin.h \
+		include/ipin.h \
+		include/outpin.h \
+		include/map.h \
+		include/ielement.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o inpin.o src/inpin.cpp
 
-input_pin_menu.o: src/input_pin_menu.cpp include/input_pin_menu.h \
-		include/pin_menu.h \
-		include/pin.h \
-		include/wire.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o input_pin_menu.o src/input_pin_menu.cpp
+outpin.o: src/outpin.cpp include/outpin.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/map.h \
+		include/ielement.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o outpin.o src/outpin.cpp
+
+ielement.o: src/ielement.cpp include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ielement.o src/ielement.cpp
+
+input.o: src/input.cpp include/input.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o input.o src/input.cpp
+
+output.o: src/output.cpp include/output.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o output.o src/output.cpp
 
 element.o: src/element.cpp include/element.h \
-		include/pin.h \
-		include/wire.h
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/map.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o element.o src/element.cpp
 
 element_menu.o: src/element_menu.cpp include/element_menu.h \
 		include/element.h \
-		include/pin.h \
-		include/wire.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
 		include/map.h \
-		include/new_element_button.h
+		include/new_element_button.h \
+		include/input.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o element_menu.o src/element_menu.cpp
-
-wire.o: src/wire.cpp include/wire.h \
-		include/pin.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wire.o src/wire.cpp
 
 new_element_button.o: src/new_element_button.cpp include/new_element_button.h \
 		include/element.h \
-		include/pin.h \
-		include/wire.h
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/map.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o new_element_button.o src/new_element_button.cpp
 
 map.o: src/map.cpp include/map.h \
-		include/element.h \
-		include/pin.h \
-		include/wire.h
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map.o src/map.cpp
+
+menu.o: src/menu.cpp include/menu.h \
+		include/window.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/settings.h \
+		ui_menu.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o src/menu.cpp
+
+settings.o: src/settings.cpp include/menu.h \
+		include/window.h \
+		include/map.h \
+		include/ielement.h \
+		include/ipin.h \
+		include/inpin.h \
+		include/outpin.h \
+		include/settings.h \
+		ui_settings.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o settings.o src/settings.cpp
 
 moc_element.o: moc_element.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_element.o moc_element.cpp
@@ -557,23 +693,32 @@ moc_element.o: moc_element.cpp
 moc_element_menu.o: moc_element_menu.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_element_menu.o moc_element_menu.cpp
 
+moc_ielement.o: moc_ielement.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ielement.o moc_ielement.cpp
+
+moc_input.o: moc_input.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_input.o moc_input.cpp
+
+moc_ipin.o: moc_ipin.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ipin.o moc_ipin.cpp
+
 moc_map.o: moc_map.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_map.o moc_map.cpp
+
+moc_menu.o: moc_menu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_menu.o moc_menu.cpp
 
 moc_new_element_button.o: moc_new_element_button.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_new_element_button.o moc_new_element_button.cpp
 
-moc_pin.o: moc_pin.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pin.o moc_pin.cpp
+moc_output.o: moc_output.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_output.o moc_output.cpp
 
-moc_pin_menu.o: moc_pin_menu.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pin_menu.o moc_pin_menu.cpp
+moc_settings.o: moc_settings.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_settings.o moc_settings.cpp
 
 moc_window.o: moc_window.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_window.o moc_window.cpp
-
-moc_wire.o: moc_wire.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_wire.o moc_wire.cpp
 
 ####### Install
 

@@ -13,14 +13,22 @@ TARGET = main.out
 SOURCES += \
     src/main.cpp \
     src/window.cpp \
-    src/pin.cpp \
-    src/pin_menu.cpp \
-    src/input_pin_menu.cpp \
+    src/ipin.cpp \
+    src/inpin.cpp \
+    src/outpin.cpp \
+    src/ielement.cpp \
+    src/input.cpp \
+    src/output.cpp \
+#    src/pin.cpp \
+#    src/pin_menu.cpp \
+#    src/input_pin_menu.cpp \
     src/element.cpp \
     src/element_menu.cpp \
-    src/wire.cpp \
+#    src/wire.cpp \
     src/new_element_button.cpp \
-    src/map.cpp
+    src/map.cpp \
+    src/menu.cpp \
+    src/settings.cpp 
 
 #src/*.cpp
 #DESTDIR = $$[QT_INSTALL_PLUGINS]/generic
@@ -28,5 +36,7 @@ SOURCES += \
 HEADERS += include/*.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    menu.ui \
+    settings.ui
 

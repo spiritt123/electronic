@@ -1,18 +1,19 @@
 #include "element_menu.h"
+#include "input.h"
 #include <QDebug>
 
-ElementMune::ElementMune(QWidget *parant, QHBoxLayout *layout, Wire *wire, Map *map) : 
+ElementMenu::ElementMenu(QWidget *parant, QHBoxLayout *layout, Map *map) : 
     QWidget(parant),
     _layout(layout),
-    _wire(wire),
     _map(map)
 {
     createStartElements();
+
 }
 
-ElementMune::~ElementMune() {}
+ElementMenu::~ElementMenu() {}
 
-void ElementMune::loadNewElementFormFile(QString path)
+void ElementMenu::loadNewElementFormFile(QString path)
 {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -37,22 +38,22 @@ void ElementMune::loadNewElementFormFile(QString path)
             rules[i] = in.readLine();
         }
 
-        Element *new_element = new Element(_wire, in_pin, rules, name, this);
+        Element *new_element = new Element(_map, in_pin, rules, name, this);
         addNewElement(new_element, name);
     }
 }
 
-void ElementMune::addNewElement(Element *element, QString name_element)
+void ElementMenu::addNewElement(IElement *element, QString name_element)
 {
-    NewElementButton *element_button = new NewElementButton((Element*)element, name_element, this);
-    connect(element_button, SIGNAL(click(Element*)), _map, SLOT(addElement(Element*)));
+    NewElementButton *element_button = new NewElementButton(static_cast<IElement*>(element), name_element, this);
+    connect(element_button, SIGNAL(click(IElement*)), _map, SLOT(addElement(IElement*)));
 
     _layout->insertWidget(_layout->count() - 1, element_button);
     element->hide();
     //_elements.push_back(element);
 }
 
-void ElementMune::saveAllElementInFile(QString path)
+void ElementMenu::saveAllElementInFile(QString path)
 {
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -81,9 +82,9 @@ void ElementMune::saveAllElementInFile(QString path)
     }
 }
 
-void ElementMune::createStartElements()
+void ElementMenu::createStartElements()
 {
-    addNewElement(new Element(_wire, 2, {"ab"}, "and", qobject_cast<QWidget*>(_map->parent())), "and");
-    addNewElement(new Element(_wire, 1, {"!a"}, "not", qobject_cast<QWidget*>(_map->parent())), "not");
+    addNewElement(new Element(_map, 2, {"ab"}, "and", qobject_cast<QWidget*>(_map->parent())), "and");
+    addNewElement(new Element(_map, 1, {"!a"}, "not", qobject_cast<QWidget*>(_map->parent())), "not");
 }    
  
