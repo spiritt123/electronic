@@ -4,8 +4,8 @@
 #include <QString>
 //#include <>
 
-Input::Input(Map *map, QWidget *parent)
-    : IElement(map, 0, {"a"}, parent)
+Input::Input(Map *map, QWidget *parent, QString rule)
+    : IElement(map, 0, {rule}, parent)
 {
     QHBoxLayout *switch_switch = new QHBoxLayout();
     QPushButton *switch_pin = new QPushButton("on/off");

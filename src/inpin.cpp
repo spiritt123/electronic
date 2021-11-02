@@ -54,6 +54,7 @@ void InPin::disconnectPin(OutPin* neighbour)
     buffer->disconnectPin(this);
 
     setStatus(false);
+    _map->removeWire(this);
     // перерасчёт сигнала!!!
 }
 

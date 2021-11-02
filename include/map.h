@@ -18,6 +18,7 @@ public:
     Map(QWidget *parent);
     ~Map();
 
+    void redraw();
 
 signals:
     void drawWire(QPoint, QPoint);
@@ -29,10 +30,10 @@ protected:
 public slots:
     void addElement(IElement *element, int x = 10, int y = 10);
     void createWire(IPin *pin);
+    void removeWire(IPin *pin);
     void set(QPoint first, QPoint second);
     
 private:
     QPainter *_painter;
-    //std::vector<std::pair<QPoint, QPoint>> _wires;
     std::vector<std::pair<InPin*, OutPin*>> _wires;
 };

@@ -1,5 +1,6 @@
 #include "ielement.h"
 #include <QDebug>
+#include "map.h"
 
 IElement::IElement(Map *map, size_t input_pin_count, std::vector<QString> rules, QWidget *parent) : 
     QWidget(parent),
@@ -27,6 +28,7 @@ void IElement::mouseMoveEvent(QMouseEvent *e)
     //this->move(this->parentWidget()->mapFromGlobal(QCursor::pos()));
 
     _position = e->globalPos();
+    _map->redraw();
 }
 
 bool IElement::getStatusOutpuPinByNumber(size_t number)
@@ -72,10 +74,3 @@ void IElement::updateStatusAllPins()
         pin->updateStatus(_input_pins);
     }
 }
-
-/*
-IElement* IElement::copy()
-{
-    return new IElement(_map, _input_pins.size(), _rules, qobject_cast<QWidget*>(this->parent()));
-}
-*/

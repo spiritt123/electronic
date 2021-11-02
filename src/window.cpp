@@ -41,14 +41,24 @@ QString Window::loadStyle(QString path)
    
 void Window::on_AddInputPin_clicked()
 {
-    Input *input = new Input(_map, ui->Items_field);
-    input->show();
+    static int x = 10;
+    static int y = 10;
+    QString rule = "";
+    char ch = 'a' + _inputs.size();
+    Input *input = new Input(_map, ui->Items_field, rule += ch);
+    _inputs.push_back(input);
+    _map->addElement(input, x, y);
+    y += 30;
 }
 
 void Window::on_AddOutputPin_clicked()
 {
+    static int x = 700;
+    static int y = 10;
     Output *output = new Output(_map, ui->Items_field);
-    output->show();
+    _outputs.push_back(output);
+    _map->addElement(output, x, y);
+    y += 30;
 }
 
 

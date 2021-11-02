@@ -9,6 +9,8 @@
 
 #include "element_menu.h"
 #include "map.h"
+#include "input.h"
+#include "output.h"
 
 namespace Ui
 {
@@ -32,6 +34,9 @@ private:
 private:
     ElementMenu *_element_menu;
     Map *_map;
+
+    std::vector<Input*> _inputs;
+    std::vector<Output*> _outputs;
 
     Ui::Window *ui;
 };
