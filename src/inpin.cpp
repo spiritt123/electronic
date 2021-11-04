@@ -69,4 +69,13 @@ void InPin::setStatus(bool status)
     emit updateElement();
 }
 
+QString InPin::getRuleForNewElement()
+{
+    if (_neighbour == nullptr)
+    {
+        return "0";
+    }
+
+    return _neighbour->getRuleForNewElement();
+}
 

@@ -74,3 +74,31 @@ void IElement::updateStatusAllPins()
         pin->updateStatus(_input_pins);
     }
 }
+
+QString IElement::getRuleForNewElement(OutPin *out)
+{
+    std::string rule = out->getRule().toStdString();
+    
+    std::map<char, QString> dictionary;
+    for (int i = 0; i < _input_pins.size(); ++i)
+    {
+        dictionary['a' + i] = _input_pins[i]->getRuleForNewElement();
+    }
+    
+    std::string final_rule;
+    for (int i = 0; i < rule.size(); ++i)
+    {
+        if (dictionary.find(rule[i]) != dictionary.end())
+        {
+            final_rule += "(";
+            final_rule += dictionary[rule[i]].toStdString();
+            final_rule += ")";
+        }
+        else
+        {
+            final_rule += rule[i];
+        }
+    }
+    
+    return QString(final_rule.c_str());
+}

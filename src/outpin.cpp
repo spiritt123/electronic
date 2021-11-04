@@ -134,10 +134,22 @@ void OutPin::setStatus(bool status)
     else
         this->setStyleSheet("background-color: black");
 
-    //qDebug() << (_neighbour == nullptr);
     if (_neighbour != nullptr)
     {
         _neighbour->setStatus(_status);
     }
     emit updateElement();
 }
+
+QString OutPin::getRuleForNewElement()
+{
+    return static_cast<IElement*>(this->parent())->getRuleForNewElement(this);
+}
+
+QString OutPin::getRule()
+{
+    return _rule;
+}
+
+
+

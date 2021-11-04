@@ -10,7 +10,7 @@ Input::Input(Map *map, QWidget *parent, QString rule)
     QHBoxLayout *switch_switch = new QHBoxLayout();
     QPushButton *switch_pin = new QPushButton("on/off");
 
-    OutPin *pin = new OutPin(this, map, "a");
+    OutPin *pin = new OutPin(this, map, rule);
         
     connect(switch_pin, SIGNAL(clicked()), pin, SLOT(changeStatus()));
 

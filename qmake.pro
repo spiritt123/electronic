@@ -19,14 +19,11 @@ SOURCES += \
     src/ielement.cpp \
     src/input.cpp \
     src/output.cpp \
-#    src/pin.cpp \
-#    src/pin_menu.cpp \
-#    src/input_pin_menu.cpp \
     src/element.cpp \
     src/element_menu.cpp \
-#    src/wire.cpp \
     src/new_element_button.cpp \
     src/map.cpp \
+    src/creator_new_elements.cpp \
     src/menu.cpp \
     src/settings.cpp 
 

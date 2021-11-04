@@ -21,6 +21,8 @@ public:
 
     void updateStatus(std::vector<InPin*> input_pins);
 
+    QString getRule();
+    QString getRuleForNewElement();
     virtual void setStatus(bool status) override;
     virtual QString getName() override {return "outpin";}
 

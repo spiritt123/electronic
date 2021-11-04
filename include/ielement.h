@@ -29,6 +29,8 @@ public:
     void mouseMoveEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
 
+    QString getRuleForNewElement(OutPin *out);
+
     bool getStatusOutpuPinByNumber(size_t number);
     size_t getCountInputPins();
     size_t getCountOutputPins();

@@ -14,6 +14,7 @@ public:
     void setNeighbour(OutPin *neighbour);
     OutPin*  getNeighbour();
 
+    QString getRuleForNewElement();
     virtual QString getName() override {return "inpin";}
     virtual void setStatus(bool status) override;
 
