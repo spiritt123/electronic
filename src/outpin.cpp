@@ -44,6 +44,49 @@ void OutPin::connectPin(InPin* neighbour)
     setStatus(neighbour->getStatus());
 }
 
+bool OutPin::getNewStatus(std::string &rule, std::vector<InPin*> input_pins)
+{
+    bool result = true;
+    while (rule.size() > 0)
+    {
+        if (rule[0] == '+')
+        {
+            if (result == true)
+            {
+                setStatus(true);
+                rule = "";
+                return true;
+            }
+            else
+            {
+                result = true;
+                continue;
+            }
+        }
+        else if (rule[0] == '(')
+        {
+            rule.erase(0, 1);
+            result &= getNewStatus(rule, input_pins);
+        }
+        else if (rule[0] == ')')
+        {
+            return result;
+        }
+        else if (rule[0] == '!')
+        {
+            result &= !input_pins[rule[1] - 'a']->getStatus();
+            rule.erase(0, 1);
+        }
+        else
+        {
+            result &= input_pins[rule[0] - 'a']->getStatus();
+        }
+        rule.erase(0, 1);
+    }
+    return result;
+}
+
+
 void OutPin::updateStatus(std::vector<InPin*> input_pins)
 {
     if (!isCorrectLetterInRule(input_pins.size()))
@@ -52,37 +95,19 @@ void OutPin::updateStatus(std::vector<InPin*> input_pins)
         setStatus(false);
         return ;
     }
-    //.toAscii();
-    bool result = true;
-    for (size_t j = 0; j < _rule.length(); ++j)
-    {
-        if (_rule.at(j).unicode() == '+')
-        {
-            if (result == true)
-            {
-                setStatus(true);
-                return ;
-            }
-            else
-            {
-                result = true;
-                continue;
-            }
-        }
-        else if (_rule.at(j).unicode() == '!')
-        {
-            result &= !input_pins[_rule.at(++j).unicode() - 'a']->getStatus();
-        }
-        else
-        {
-            result &= input_pins[_rule.at(j).unicode() - 'a']->getStatus();
-        }
-    }
-    //    qDebug() << result;
-    setStatus(result);
+
+    std::string rule = _rule.toStdString();
+    setStatus(getNewStatus(rule, input_pins));
 }
 
+static bool isCorrect(std::string rule, int count_outputs);
+
 bool OutPin::isCorrectLetterInRule(int count_input_pins)
+{
+    return isCorrect(_rule.toStdString(), count_input_pins);
+}
+
+static bool isCorrect(std::string rule, int count_outputs)
 {
     int table[3][3] = 
     {
@@ -93,17 +118,30 @@ bool OutPin::isCorrectLetterInRule(int count_input_pins)
     };
     int state = 0;
 
-    for (size_t i = 0; i < _rule.count(); ++i)
+    while (rule.size() > 0)
     {
-        if (_rule.at(i) == '+') 
+        if (rule[0] == '+') 
             state = table[state][2];
-        else if (_rule.at(i) == '!')
+        else if (rule[0] == '!')
             state = table[state][0];
-        else if (_rule.at(i) >= 'a' && 
-                 _rule.at(i).unicode() <  'a' + count_input_pins)
+        else if (rule[0] >= 'a' && 
+                 rule[0] <  'a' + count_outputs)
             state = table[state][1];
+        else if (rule[0] == '(')
+        {
+            if (isCorrect(rule, count_outputs) == false)
+                return false;
+            rule.erase(0, rule.find_first_of(")"));
+            //catstr
+        }
+        else if (rule[0] == ')')
+        {
+            if (state == 2) return true;
+            return false;
+        }
         else
             return false;
+        rule.erase(0, 1);
 
         if (state == 9)
             return false;
@@ -113,6 +151,7 @@ bool OutPin::isCorrectLetterInRule(int count_input_pins)
         return true;
     return false;
 }
+
 void OutPin::disconnectPin(InPin* neighbour)
 {
     if (_neighbour == nullptr)

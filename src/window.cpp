@@ -18,7 +18,7 @@ Window::Window(QMainWindow *parent, QString path) :
 
     _element_menu = new ElementMenu(ui->ListElements, ui->ListElementsLayout, _map);
 
-    _creator_new_elements = new CreatorNewElements(&_inputs, &_outputs);
+    _creator_new_elements = new CreatorNewElements(_map, &_inputs, &_outputs);
 }
 
 Window::~Window()
@@ -66,5 +66,7 @@ void Window::on_AddOutputPin_clicked()
 void Window::on_CreateNewElement_clicked()
 {
     auto new_element = _creator_new_elements->create(ui->NewNameElement->text());
+    _element_menu->addNewElement(new_element, ui->NewNameElement->text());
+    //qDebug() << new_element;
     // add element to panel
 }

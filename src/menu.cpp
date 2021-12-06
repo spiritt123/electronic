@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "ui_menu.h"
+#include <thread>
 
 #include <QDebug>
 
@@ -28,6 +29,14 @@ void Menu::on_Start_button_clicked()
         emit close();
     }
 }
+
+/*
+void StartSettings()
+{
+    Settings *settings = new Settings(0, "./settings.txt");
+    settings->show();
+}
+*/
 
 void Menu::on_Settings_button_clicked()
 {

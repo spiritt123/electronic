@@ -28,6 +28,7 @@ public:
 
 private:
     bool isCorrectLetterInRule(int count_input_pins);
+    bool getNewStatus(std::string &rule, std::vector<InPin*> input_pins);
 
 private:
     InPin* _neighbour;

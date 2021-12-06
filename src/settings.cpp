@@ -16,3 +16,9 @@ Settings::~Settings()
 {
     delete ui;
 }
+
+void Settings::on_Back_button_clicked()
+{
+    emit close();
+}
+

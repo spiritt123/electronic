@@ -20,8 +20,7 @@ public:
     virtual ~Settings();
 
 public slots:
-    //void on_Start_button_clicked();
-    //void on_Settings_button_clicked();
+    void on_Back_button_clicked();
 
 //private:
 //    QString loadStyle(QString path);
