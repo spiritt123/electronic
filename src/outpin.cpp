@@ -70,12 +70,13 @@ bool OutPin::getNewStatus(std::string &rule, std::vector<InPin*> input_pins)
         }
         else if (rule[0] == ')')
         {
+            rule.erase(0, 1);
             return result;
         }
         else if (rule[0] == '!')
         {
-            result &= !input_pins[rule[1] - 'a']->getStatus();
             rule.erase(0, 1);
+            result &= ! getNewStatus(rule, input_pins);
         }
         else
         {
@@ -113,11 +114,12 @@ static bool isCorrect(std::string rule, int count_outputs)
     {
 //      !  c  +
 /*0*/   1, 2, 9,
-/*1*/   9, 2, 9,
+/*1*/   1, 2, 9,
 /*2*/   1, 2, 0
     };
     int state = 0;
 
+//    qDebug() << ">>1 " << QString(rule.c_str());
     while (rule.size() > 0)
     {
         if (rule[0] == '+') 
@@ -129,10 +131,11 @@ static bool isCorrect(std::string rule, int count_outputs)
             state = table[state][1];
         else if (rule[0] == '(')
         {
+            rule.erase(0, 1);
             if (isCorrect(rule, count_outputs) == false)
                 return false;
-            rule.erase(0, rule.find_first_of(")"));
-            //catstr
+            state = 2;
+            rule.erase(0, rule.find_first_of(")") + 1);
         }
         else if (rule[0] == ')')
         {
