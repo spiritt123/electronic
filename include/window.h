@@ -12,6 +12,7 @@
 #include "input.h"
 #include "output.h"
 #include "creator_new_elements.h"
+#include "loadStyle.h"
 
 namespace Ui
 {
@@ -29,9 +30,6 @@ public slots:
     void on_AddOutputPin_clicked();
     void on_AddInputPin_clicked();
     void on_CreateNewElement_clicked();
-
-private:
-    QString loadStyle(QString path);
 
 private:
     ElementMenu *_element_menu;

@@ -11,7 +11,10 @@ Menu::Menu(QMainWindow *parent) :
     ui->setupUi(this);
 
     _window = nullptr;
-    _settings = new Settings(0, "./settings.txt");
+    _settings = new Settings(0, "./css/background.css");
+
+    setStyleSheet(loadStyle("css/style.css"));
+    setStyleSheet(loadStyle("css/background.css"));
 }
 
 Menu::~Menu()

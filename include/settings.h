@@ -4,6 +4,7 @@
 #include <QString>
 #include <QFile>
 #include <QTextStream>
+#include "loadStyle.h"
 
 #include <vector>
 
@@ -18,13 +19,13 @@ class Settings : public QMainWindow
 public:
     explicit Settings(QMainWindow *parent = 0, QString path = "./settings.txt");
     virtual ~Settings();
+    void initSettingsMune();
 
 public slots:
     void on_Back_button_clicked();
-
-//private:
-//    QString loadStyle(QString path);
+    void on_Save_button_clicked();
 
 private:
+    QString _path;
     Ui::Settings *ui;
 };

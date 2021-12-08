@@ -8,6 +8,7 @@
 #include <vector>
 #include "window.h"
 #include "settings.h"
+#include "loadStyle.h"
 
 namespace Ui
 {

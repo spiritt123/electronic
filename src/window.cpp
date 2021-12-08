@@ -4,6 +4,7 @@
 #include "output.h"
 #include <QDebug>
 
+
 Window::Window(QMainWindow *parent, QString path) : 
     QMainWindow(parent),
     ui(new Ui::Window)
@@ -11,6 +12,7 @@ Window::Window(QMainWindow *parent, QString path) :
     ui->setupUi(this);
 
     setStyleSheet(loadStyle("css/style.css"));
+    setStyleSheet(loadStyle("css/background.css"));
 
     this->resize(800, 600);
 
@@ -26,20 +28,6 @@ Window::~Window()
     delete ui;
 }
 
-QString Window::loadStyle(QString path)
-{
-    QString data;
-    QFile file(path);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return "";
-
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        data += line + "\n";
-    }
-    return data;
-}
    
 void Window::on_AddInputPin_clicked()
 {

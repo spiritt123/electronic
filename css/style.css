@@ -24,12 +24,3 @@ QPushButton#outpin
     margin-left: -5px;
 }
 
-QMainWindow
-{
-    background-color: #535c70;
-}
-
-QPushButton
-{
-    background-color: #61f22c;
-}
