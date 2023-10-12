@@ -2,7 +2,7 @@
 #include "inpin.h"
 #include "outpin.h"
 
-
+#include <string>
 #include <QDebug>
 
 Element::Element(Map *map, size_t input_pin_count, std::vector<QString> rules, QString name, QWidget *parent) : 
